@@ -5,13 +5,13 @@ import { Improvement } from '../types';
 const getImpactColor = (impact: string) => {
   switch (impact) {
     case 'alto':
-      return 'bg-emerald-100 text-emerald-700 border-emerald-200';
+      return 'bg-primary/20 text-primary border-primary/200';
     case 'medio':
       return 'bg-amber-100 text-amber-700 border-amber-200';
     case 'bajo':
-      return 'bg-slate-100 text-slate-700 border-slate-200';
+      return 'bg-gray-100 text-gray-300 border-gray-200';
     default:
-      return 'bg-slate-100 text-slate-700 border-slate-200';
+      return 'bg-gray-100 text-gray-300 border-gray-200';
   }
 };
 
@@ -61,25 +61,25 @@ export default function ImprovementChecklist() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
+    <div className="min-h-screen bg-dark">
       <div className="max-w-3xl mx-auto px-4 py-12 sm:px-6">
         <button
           onClick={() => setCurrentScreen('result-casi')}
-          className="flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-8 transition-colors"
+          className="flex items-center gap-2 text-gray-400 hover:text-white mb-8 transition-colors"
         >
           <ChevronLeft className="w-5 h-5" />
           <span>Volver</span>
         </button>
 
-        <div className="bg-white rounded-3xl shadow-xl p-8 sm:p-12">
+        <div className="bg-dark-card rounded-[2.5rem] shadow-xl p-8 sm:p-12">
           <div className="flex items-center gap-3 mb-3">
-            <div className="bg-blue-600 rounded-xl p-3">
+            <div className="bg-primary rounded-2xl p-3">
               <TrendingUp className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-slate-900">Plan de mejora</h1>
+            <h1 className="text-3xl font-bold text-white">Plan de mejora</h1>
           </div>
 
-          <p className="text-slate-600 mb-8">
+          <p className="text-gray-400 mb-8">
             Sigue estos pasos para mejorar tu resultado y llegar a Apto
           </p>
 
@@ -87,15 +87,15 @@ export default function ImprovementChecklist() {
             {improvements.map((improvement, index) => (
               <div
                 key={index}
-                className="bg-slate-50 border border-slate-200 rounded-xl p-6 hover:border-blue-300 transition-colors"
+                className="bg-gray-50 border border-gray-200 rounded-2xl p-6 hover:border-blue-300 transition-colors"
               >
                 <div className="flex items-start gap-4">
-                  <div className="bg-white border-2 border-slate-300 rounded-lg w-10 h-10 flex items-center justify-center flex-shrink-0">
+                  <div className="bg-dark-card border-2 border-gray-300 rounded-lg w-10 h-10 flex items-center justify-center flex-shrink-0">
                     <CheckCircle className="w-6 h-6 text-slate-400" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <h3 className="font-semibold text-slate-900">{improvement.title}</h3>
+                      <h3 className="font-semibold text-white">{improvement.title}</h3>
                       <span
                         className={`text-xs px-2 py-1 rounded-full border font-medium ${getImpactColor(
                           improvement.impact
@@ -104,7 +104,7 @@ export default function ImprovementChecklist() {
                         Impacto {improvement.impact}
                       </span>
                     </div>
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <p className="text-sm text-gray-400 leading-relaxed">
                       {improvement.description}
                     </p>
                   </div>
@@ -113,9 +113,9 @@ export default function ImprovementChecklist() {
             ))}
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6">
-            <h3 className="font-semibold text-slate-900 mb-2">Consejo motivador</h3>
-            <p className="text-sm text-slate-700">
+          <div className="bg-dark-card/50 border border-primary/20 rounded-2xl p-6 mb-6">
+            <h3 className="font-semibold text-white mb-2">Consejo motivador</h3>
+            <p className="text-sm text-gray-300">
               Cada mejora te acerca a la aprobación. No necesitas hacerlo todo de una vez.
               Enfócate en los cambios de alto impacto primero y revisa tu progreso en 30 días.
             </p>
@@ -124,13 +124,13 @@ export default function ImprovementChecklist() {
           <div className="flex gap-3">
             <button
               onClick={() => setCurrentScreen('reminders')}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+              className="flex-1 bg-primary hover:bg-primary-dark text-white py-4 rounded-2xl font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
             >
               <Bell className="w-5 h-5" />
               Activar recordatorio
             </button>
 
-            <button className="bg-slate-100 hover:bg-slate-200 text-slate-900 px-6 py-4 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2">
+            <button className="bg-gray-100 hover:bg-gray-200 text-white px-6 py-4 rounded-2xl font-semibold transition-colors flex items-center justify-center gap-2">
               <Download className="w-5 h-5" />
               Guardar
             </button>

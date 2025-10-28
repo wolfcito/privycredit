@@ -150,24 +150,24 @@ export default function GenerateProof() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 flex items-center justify-center px-4">
-        <div className="bg-white rounded-3xl shadow-xl p-8 max-w-md w-full">
+      <div className="min-h-screen bg-dark flex items-center justify-center px-4">
+        <div className="bg-dark-card rounded-[2.5rem] shadow-xl p-8 max-w-md w-full">
           <div className="text-center">
             <div className="bg-red-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
               <span className="text-3xl">✕</span>
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-3">Error</h2>
-            <p className="text-slate-600 mb-6">{error}</p>
+            <h2 className="text-2xl font-bold text-white mb-3">Error</h2>
+            <p className="text-gray-400 mb-6">{error}</p>
             <div className="flex gap-3">
               <button
                 onClick={handleCancel}
-                className="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-900 py-3 rounded-xl font-semibold transition-colors"
+                className="flex-1 bg-gray-200 hover:bg-gray-300 text-white py-3 rounded-2xl font-semibold transition-colors"
               >
                 Volver
               </button>
               <button
                 onClick={() => window.location.reload()}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition-colors"
+                className="flex-1 bg-primary hover:bg-primary-dark text-white py-3 rounded-2xl font-semibold transition-colors"
               >
                 Reintentar
               </button>
@@ -179,10 +179,10 @@ export default function GenerateProof() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 flex items-center justify-center px-4">
-      <div className="bg-white rounded-3xl shadow-xl p-8 sm:p-12 max-w-2xl w-full">
+    <div className="min-h-screen bg-dark flex items-center justify-center px-4">
+      <div className="bg-dark-card rounded-[2.5rem] shadow-xl p-8 sm:p-12 max-w-2xl w-full">
         <div className="flex items-center justify-center mb-8">
-          <div className="bg-blue-600 rounded-2xl p-4 relative">
+          <div className="bg-primary rounded-[2rem] p-4 relative">
             <Shield className="w-10 h-10 text-white" />
             <div className="absolute inset-0 flex items-center justify-center">
               <Loader className="w-16 h-16 text-blue-300 animate-spin" />
@@ -190,15 +190,15 @@ export default function GenerateProof() {
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold text-slate-900 mb-3 text-center">
+        <h1 className="text-3xl font-bold text-white mb-3 text-center">
           Generando tu prueba sellada
         </h1>
-        <p className="text-slate-600 text-center mb-8">
+        <p className="text-gray-400 text-center mb-8">
           Estimado: ~1 minuto
         </p>
 
         <div className="mb-10">
-          <div className="bg-slate-200 rounded-full h-3 overflow-hidden mb-6">
+          <div className="bg-gray-200 rounded-full h-3 overflow-hidden mb-6">
             <div
               className="bg-gradient-to-r from-blue-600 to-blue-500 h-full transition-all duration-300 ease-out"
               style={{ width: `${progress}%` }}
@@ -216,32 +216,32 @@ export default function GenerateProof() {
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                     step.id < currentStep
-                      ? 'bg-emerald-600 text-white'
+                      ? 'bg-primary text-white'
                       : step.id === currentStep
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-slate-200 text-slate-400'
+                      ? 'bg-primary text-white'
+                      : 'bg-gray-200 text-slate-400'
                   }`}
                 >
                   {step.id < currentStep ? '✓' : step.id}
                 </div>
                 <div className="flex-1 pt-1">
-                  <h3 className="font-semibold text-slate-900 mb-1">{step.label}</h3>
-                  <p className="text-sm text-slate-600">{step.description}</p>
+                  <h3 className="font-semibold text-white mb-1">{step.label}</h3>
+                  <p className="text-sm text-gray-400">{step.description}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
-          <p className="text-sm text-slate-700 text-center">
+        <div className="bg-dark-card/50 border border-primary/20 rounded-2xl p-4 mb-6">
+          <p className="text-sm text-gray-300 text-center">
             Tu información no sale en claro. Solo generamos bandas y umbrales verificables on-chain.
           </p>
         </div>
 
         <button
           onClick={handleCancel}
-          className="w-full bg-slate-200 hover:bg-slate-300 text-slate-900 py-3 rounded-xl font-medium transition-colors"
+          className="w-full bg-gray-200 hover:bg-gray-300 text-white py-3 rounded-2xl font-medium transition-colors"
         >
           Cancelar
         </button>

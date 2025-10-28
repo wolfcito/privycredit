@@ -5,7 +5,7 @@ import { BandLevel } from '../types';
 const getBandColor = (band: BandLevel) => {
   switch (band) {
     case 'A':
-      return 'bg-emerald-100 text-emerald-700 border-emerald-200';
+      return 'bg-primary/20 text-primary border-primary/200';
     case 'B':
       return 'bg-amber-100 text-amber-700 border-amber-200';
     case 'C':
@@ -64,28 +64,28 @@ export default function ResultCasi() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
+    <div className="min-h-screen bg-dark">
       <div className="max-w-2xl mx-auto px-4 py-12 sm:px-6">
-        <div className="bg-white rounded-3xl shadow-xl p-8 sm:p-12">
+        <div className="bg-dark-card rounded-[2.5rem] shadow-xl p-8 sm:p-12">
           <div className="flex items-center justify-center mb-6">
             <div className="bg-amber-500 rounded-full p-4">
               <AlertCircle className="w-12 h-12 text-white" />
             </div>
           </div>
 
-          <h1 className="text-4xl font-bold text-slate-900 mb-3 text-center">
+          <h1 className="text-4xl font-bold text-white mb-3 text-center">
             Casi...
           </h1>
-          <p className="text-slate-600 text-center mb-8">
+          <p className="text-gray-400 text-center mb-8">
             Estás cerca de cumplir los umbrales. Con algunas mejoras podrás calificar como Apto.
           </p>
 
-          <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6 mb-8">
-            <h3 className="font-semibold text-slate-900 mb-4">Bandas por factor</h3>
+          <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-[2rem] p-6 mb-8">
+            <h3 className="font-semibold text-white mb-4">Bandas por factor</h3>
             <div className="space-y-3">
               {factors.map((factor) => (
                 <div key={factor.key} className="flex items-center justify-between">
-                  <span className="text-slate-700 font-medium">{factor.label}</span>
+                  <span className="text-gray-300 font-medium">{factor.label}</span>
                   <span
                     className={`px-4 py-2 rounded-lg border font-semibold ${getBandColor(
                       factor.value
@@ -99,31 +99,31 @@ export default function ResultCasi() {
           </div>
 
           {improvements.length > 0 && (
-            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-8">
-              <h3 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-blue-600" />
+            <div className="bg-dark-card/50 border border-primary/20 rounded-[2rem] p-6 mb-8">
+              <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-primary" />
                 Mejoras prioritarias
               </h3>
               <div className="space-y-3">
                 {improvements.slice(0, 3).map((improvement, index) => (
                   <div key={index} className="flex items-start gap-3">
-                    <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-sm font-semibold">
+                    <span className="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-sm font-semibold">
                       {index + 1}
                     </span>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <h4 className="font-semibold text-slate-900">{improvement.title}</h4>
+                        <h4 className="font-semibold text-white">{improvement.title}</h4>
                         <span
                           className={`text-xs px-2 py-0.5 rounded-full ${
                             improvement.impact === 'alto'
-                              ? 'bg-emerald-100 text-emerald-700'
+                              ? 'bg-primary/20 text-primary'
                               : 'bg-amber-100 text-amber-700'
                           }`}
                         >
                           Impacto {improvement.impact}
                         </span>
                       </div>
-                      <p className="text-sm text-slate-600">{improvement.description}</p>
+                      <p className="text-sm text-gray-400">{improvement.description}</p>
                     </div>
                   </div>
                 ))}
@@ -134,7 +134,7 @@ export default function ResultCasi() {
           <div className="space-y-3 mb-6">
             <button
               onClick={() => setCurrentScreen('improvements')}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+              className="w-full bg-primary hover:bg-primary-dark text-white py-4 rounded-2xl font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
             >
               <TrendingUp className="w-5 h-5" />
               Ver plan de mejora completo
@@ -142,7 +142,7 @@ export default function ResultCasi() {
 
             <button
               onClick={() => setCurrentScreen('simulator')}
-              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-900 py-4 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-gray-100 hover:bg-gray-200 text-white py-4 rounded-2xl font-semibold transition-colors flex items-center justify-center gap-2"
             >
               Abrir simulador
               <ChevronRight className="w-5 h-5" />
@@ -150,15 +150,15 @@ export default function ResultCasi() {
 
             <button
               onClick={() => setCurrentScreen('reminders')}
-              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-900 py-4 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-gray-100 hover:bg-gray-200 text-white py-4 rounded-2xl font-semibold transition-colors flex items-center justify-center gap-2"
             >
               <Bell className="w-5 h-5" />
               Recordarme en 30 días
             </button>
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-            <p className="text-sm text-slate-700 text-center">
+          <div className="bg-dark-card/50 border border-primary/20 rounded-2xl p-4">
+            <p className="text-sm text-gray-300 text-center">
               Tus datos siguen privados. Solo mostramos bandas, no montos exactos.
             </p>
           </div>
@@ -169,7 +169,7 @@ export default function ResultCasi() {
                 href={`https://scrollscan.com/tx/${currentProof.tx_hash}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:underline inline-flex items-center gap-1"
+                className="text-primary hover:underline inline-flex items-center gap-1"
               >
                 Ver en Scrollscan
                 <ExternalLink className="w-3 h-3" />
@@ -179,7 +179,7 @@ export default function ResultCasi() {
 
           <button
             onClick={() => setCurrentScreen('landing')}
-            className="w-full mt-6 text-slate-600 hover:text-slate-900 py-2 text-sm transition-colors"
+            className="w-full mt-6 text-gray-400 hover:text-white py-2 text-sm transition-colors"
           >
             Volver al inicio
           </button>

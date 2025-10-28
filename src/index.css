@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900;
+    @apply bg-dark text-white;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
@@ -12,5 +12,13 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .gradient-card {
+    background: linear-gradient(135deg, #2a4a3a 0%, #1a3a2a 100%);
+  }
+
+  .gradient-primary {
+    background: linear-gradient(135deg, #c4ff0d 0%, #a8e00b 100%);
   }
 }

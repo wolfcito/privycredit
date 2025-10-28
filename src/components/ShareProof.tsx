@@ -59,50 +59,50 @@ export default function ShareProof() {
   const shareUrl = shareToken ? `${window.location.origin}/verify/${shareToken}` : '';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
+    <div className="min-h-screen bg-dark">
       <div className="max-w-2xl mx-auto px-4 py-12 sm:px-6">
         <button
           onClick={() => setCurrentScreen('result-apto')}
-          className="flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-8 transition-colors"
+          className="flex items-center gap-2 text-gray-400 hover:text-white mb-8 transition-colors"
         >
           <ChevronLeft className="w-5 h-5" />
           <span>Volver</span>
         </button>
 
-        <div className="bg-white rounded-3xl shadow-xl p-8 sm:p-12">
-          <h1 className="text-3xl font-bold text-slate-900 mb-3">
+        <div className="bg-dark-card rounded-[2.5rem] shadow-xl p-8 sm:p-12">
+          <h1 className="text-3xl font-bold text-white mb-3">
             Compartir prueba sellada
           </h1>
-          <p className="text-slate-600 mb-8">
+          <p className="text-gray-400 mb-8">
             Genera un enlace seguro para compartir tu resultado con prestamistas
           </p>
 
           {!shareToken ? (
             <div>
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6">
-                <h3 className="font-semibold text-slate-900 mb-3">Qué se comparte:</h3>
-                <ul className="space-y-2 text-sm text-slate-700">
+              <div className="bg-dark-card/50 border border-primary/20 rounded-2xl p-6 mb-6">
+                <h3 className="font-semibold text-white mb-3">Qué se comparte:</h3>
+                <ul className="space-y-2 text-sm text-gray-300">
                   <li className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-primary flex-shrink-0" />
                     <span>Tu resultado (Apto/Casi)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-primary flex-shrink-0" />
                     <span>Bandas por factor (Estabilidad, Ingresos, Riesgo)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-primary flex-shrink-0" />
                     <span>Timestamp de generación</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-8">
+              <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-8">
                 <div className="flex items-start gap-3">
                   <Clock className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Válido por 72 horas</h3>
-                    <p className="text-sm text-slate-700">
+                    <h3 className="font-semibold text-white mb-1">Válido por 72 horas</h3>
+                    <p className="text-sm text-gray-300">
                       El enlace expirará automáticamente después de 3 días por seguridad.
                     </p>
                   </div>
@@ -118,31 +118,31 @@ export default function ShareProof() {
               <button
                 onClick={generateShareLink}
                 disabled={loading}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white py-4 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl"
+                className="w-full bg-primary hover:bg-primary-dark disabled:bg-gray-300 text-white py-4 rounded-2xl font-semibold transition-all shadow-lg hover:shadow-xl"
               >
                 {loading ? 'Generando...' : 'Generar enlace seguro'}
               </button>
             </div>
           ) : (
             <div>
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6 mb-6">
-                <div className="flex items-center gap-2 text-emerald-700 mb-2">
+              <div className="bg-emerald-50 border border-primary/200 rounded-2xl p-6 mb-6">
+                <div className="flex items-center gap-2 text-primary mb-2">
                   <Check className="w-5 h-5" />
                   <span className="font-semibold">Enlace generado</span>
                 </div>
-                <p className="text-sm text-slate-700">
+                <p className="text-sm text-gray-300">
                   Tu enlace está listo. Compártelo con el prestamista.
                 </p>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-4">
-                <p className="text-sm text-slate-600 font-mono break-all">{shareUrl}</p>
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4 mb-4">
+                <p className="text-sm text-gray-400 font-mono break-all">{shareUrl}</p>
               </div>
 
               <div className="flex gap-3 mb-8">
                 <button
                   onClick={copyToClipboard}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 bg-primary hover:bg-primary-dark text-white py-3 rounded-2xl font-semibold transition-colors flex items-center justify-center gap-2"
                 >
                   {copied ? (
                     <>
@@ -157,28 +157,28 @@ export default function ShareProof() {
                   )}
                 </button>
 
-                <button className="bg-slate-100 hover:bg-slate-200 text-slate-900 px-6 py-3 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2">
+                <button className="bg-gray-100 hover:bg-gray-200 text-white px-6 py-3 rounded-2xl font-semibold transition-colors flex items-center justify-center gap-2">
                   <QrCode className="w-5 h-5" />
                   QR
                 </button>
               </div>
 
-              <div className="border-t border-slate-200 pt-6 mb-6">
-                <h3 className="font-semibold text-slate-900 mb-4">Envío directo a aliados</h3>
+              <div className="border-t border-gray-200 pt-6 mb-6">
+                <h3 className="font-semibold text-white mb-4">Envío directo a aliados</h3>
                 <div className="space-y-2">
-                  <button className="w-full bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-900 py-3 rounded-xl font-medium transition-colors flex items-center justify-between px-4">
+                  <button className="w-full bg-gray-50 hover:bg-gray-100 border border-gray-200 text-white py-3 rounded-2xl font-medium transition-colors flex items-center justify-between px-4">
                     <span>Cooperativa A</span>
                     <ExternalLink className="w-5 h-5 text-slate-400" />
                   </button>
-                  <button className="w-full bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-900 py-3 rounded-xl font-medium transition-colors flex items-center justify-between px-4">
+                  <button className="w-full bg-gray-50 hover:bg-gray-100 border border-gray-200 text-white py-3 rounded-2xl font-medium transition-colors flex items-center justify-between px-4">
                     <span>Fintech B</span>
                     <ExternalLink className="w-5 h-5 text-slate-400" />
                   </button>
                 </div>
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-                <p className="text-sm text-slate-700 text-center">
+              <div className="bg-dark-card/50 border border-primary/20 rounded-2xl p-4">
+                <p className="text-sm text-gray-300 text-center">
                   El enlace expira en 72 horas. Solo se comparten bandas y resultado, nunca montos ni
                   contrapartes.
                 </p>
