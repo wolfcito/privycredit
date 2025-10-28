@@ -9,19 +9,6 @@ export default function Landing() {
     <>
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
       <div className="max-w-6xl mx-auto px-4 py-8 sm:py-16">
-        <div className="bg-blue-900/30 border border-blue-500/50 rounded-2xl p-4 mb-8 text-center">
-          <p className="text-sm text-blue-200">
-            Esta demo funciona en <strong>{SCROLL_SEPOLIA_NAME}</strong> -{' '}
-            <a
-              href={SCROLL_SEPOLIA_EXPLORER}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-blue-100"
-            >
-              Ver explorador
-            </a>
-          </p>
-        </div>
 
         <div className="flex items-center justify-center mb-8">
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-[2.5rem] p-6 shadow-2xl">
