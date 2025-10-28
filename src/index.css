@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply bg-dark text-white;
+    @apply bg-dark text-light font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
@@ -15,10 +17,10 @@
   }
 
   .gradient-card {
-    background: linear-gradient(135deg, #2a4a3a 0%, #1a3a2a 100%);
+    background: linear-gradient(135deg, #2D2D2D 0%, #171717 100%);
   }
 
   .gradient-primary {
-    background: linear-gradient(135deg, #c4ff0d 0%, #a8e00b 100%);
+    background: linear-gradient(135deg, #A6DD05 0%, #8bc004 100%);
   }
 }

@@ -20,21 +20,21 @@ export default function ConnectWallet() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-dark via-dark-card to-dark py-8 px-4">
       <div className="max-w-3xl mx-auto">
         <div className="mb-8 text-center">
-          <div className="inline-flex bg-blue-500/20 rounded-full p-4 mb-4">
-            <Shield className="w-12 h-12 text-blue-400" />
+          <div className="inline-flex bg-accent/20 rounded-full p-4 mb-4">
+            <Shield className="w-12 h-12 text-accent" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Conecta y autoriza</h1>
+          <h1 className="text-3xl font-bold text-light mb-2">Conecta y autoriza</h1>
           <p className="text-gray-400">
             Necesitamos tu permiso para generar una prueba sellada
           </p>
         </div>
 
-        <div className="bg-gray-800/50 backdrop-blur-sm rounded-3xl border border-gray-700 p-8 mb-6">
+        <div className="bg-dark-card/50 backdrop-blur-sm rounded-3xl border border-dark-border p-8 mb-6">
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-white mb-4">1. Conecta tu wallet</h2>
+            <h2 className="text-xl font-semibold text-light mb-4">1. Conecta tu wallet</h2>
             {!account ? (
               <>
                 <p className="text-gray-400 text-sm mb-4">
@@ -52,7 +52,7 @@ export default function ConnectWallet() {
                 <button
                   onClick={connect}
                   disabled={isConnecting}
-                  className="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-600 text-white py-4 rounded-xl font-semibold transition-all disabled:cursor-not-allowed"
+                  className="w-full bg-accent hover:bg-primary-dark disabled:bg-gray-600 text-light py-3 rounded-xl font-semibold transition-all disabled:cursor-not-allowed"
                 >
                   {isConnecting ? 'Conectando...' : 'Conectar Wallet'}
                 </button>
@@ -64,7 +64,7 @@ export default function ConnectWallet() {
               <div className="flex items-center gap-3 bg-green-900/30 border border-green-500/50 rounded-xl p-4">
                 <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-white font-medium text-sm mb-1">Wallet conectada</p>
+                  <p className="text-light font-medium text-sm mb-1">Wallet conectada</p>
                   <p className="text-gray-400 text-xs font-mono truncate">
                     {account}
                   </p>
@@ -74,7 +74,7 @@ export default function ConnectWallet() {
           </div>
 
           <div className="mb-6">
-            <h2 className="text-xl font-semibold text-white mb-4">
+            <h2 className="text-xl font-semibold text-light mb-4">
               2. Otorga consentimiento
             </h2>
             <p className="text-gray-400 text-sm mb-4">
@@ -82,15 +82,15 @@ export default function ConnectWallet() {
             </p>
 
             <div className="space-y-3">
-              <label className="flex items-start gap-3 p-4 bg-gray-700/30 rounded-xl cursor-pointer hover:bg-gray-700/50 transition-colors">
+              <label className="flex items-start gap-3 p-4 bg-dark-card/30 rounded-xl cursor-pointer hover:bg-dark-card/50 transition-colors">
                 <input
                   type="checkbox"
                   checked={consentData}
                   onChange={(e) => setConsentData(e.target.checked)}
-                  className="mt-1 w-5 h-5 rounded border-gray-600 text-blue-500 focus:ring-blue-500 focus:ring-offset-gray-800"
+                  className="mt-1 w-5 h-5 rounded border-dark-border text-blue-500 focus:ring-blue-500 focus:ring-offset-gray-800"
                 />
                 <div className="flex-1">
-                  <p className="text-white text-sm font-medium mb-1">
+                  <p className="text-light text-sm font-medium mb-1">
                     Analizar mi actividad on-chain
                   </p>
                   <p className="text-gray-400 text-xs">
@@ -100,15 +100,15 @@ export default function ConnectWallet() {
                 </div>
               </label>
 
-              <label className="flex items-start gap-3 p-4 bg-gray-700/30 rounded-xl cursor-pointer hover:bg-gray-700/50 transition-colors">
+              <label className="flex items-start gap-3 p-4 bg-dark-card/30 rounded-xl cursor-pointer hover:bg-dark-card/50 transition-colors">
                 <input
                   type="checkbox"
                   checked={consentPrivacy}
                   onChange={(e) => setConsentPrivacy(e.target.checked)}
-                  className="mt-1 w-5 h-5 rounded border-gray-600 text-blue-500 focus:ring-blue-500 focus:ring-offset-gray-800"
+                  className="mt-1 w-5 h-5 rounded border-dark-border text-blue-500 focus:ring-blue-500 focus:ring-offset-gray-800"
                 />
                 <div className="flex-1">
-                  <p className="text-white text-sm font-medium mb-1">
+                  <p className="text-light text-sm font-medium mb-1">
                     Generar prueba sellada sin PII
                   </p>
                   <p className="text-gray-400 text-xs">
@@ -121,11 +121,11 @@ export default function ConnectWallet() {
 
             <div className="mt-4 flex items-center gap-2 text-xs text-gray-500">
               <ExternalLink className="w-3 h-3" />
-              <a href="#" className="hover:text-blue-400 transition-colors">
+              <a href="#" className="hover:text-accent transition-colors">
                 Términos de servicio
               </a>
               <span>·</span>
-              <a href="#" className="hover:text-blue-400 transition-colors">
+              <a href="#" className="hover:text-accent transition-colors">
                 Política de privacidad
               </a>
             </div>
@@ -133,14 +133,14 @@ export default function ConnectWallet() {
 
           <button
             onClick={() => setShowHelp(!showHelp)}
-            className="text-blue-400 hover:text-blue-300 text-sm mb-4 transition-colors"
+            className="text-accent hover:text-accent text-sm mb-4 transition-colors"
           >
             {showHelp ? '▼' : '▶'} ¿Qué es una prueba sellada?
           </button>
 
           {showHelp && (
-            <div className="bg-blue-900/30 border border-blue-500/50 rounded-xl p-4 mb-6">
-              <p className="text-blue-100 text-sm leading-relaxed">
+            <div className="bg-dark-card/30 border border-accent/50 rounded-xl p-4 mb-6">
+              <p className="text-light text-sm leading-relaxed">
                 Una <strong>prueba sellada</strong> es una verificación criptográfica que
                 demuestra que cumples ciertos criterios (como estabilidad financiera) sin
                 revelar los datos exactos que lo prueban. Es como mostrar que eres mayor
@@ -152,7 +152,7 @@ export default function ConnectWallet() {
           <button
             onClick={handleContinue}
             disabled={!canContinue}
-            className="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-white py-4 rounded-xl font-semibold transition-all"
+            className="w-full bg-accent hover:bg-primary-dark disabled:bg-gray-600 disabled:cursor-not-allowed text-light py-3 rounded-xl font-semibold transition-all"
           >
             Continuar
           </button>
@@ -166,7 +166,7 @@ export default function ConnectWallet() {
 
         <button
           onClick={() => setCurrentScreen('landing')}
-          className="text-gray-400 hover:text-white text-sm transition-colors mx-auto block"
+          className="text-gray-400 hover:text-light text-sm transition-colors mx-auto block"
         >
           ← Volver
         </button>

@@ -3,16 +3,21 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Poppins', 'system-ui', 'sans-serif'],
+      },
       colors: {
         primary: {
-          DEFAULT: '#c4ff0d',
-          dark: '#a8e00b',
-          light: '#d4ff3d',
+          DEFAULT: '#A6DD05',
+          dark: '#8bc004',
+          light: '#b8e534',
         },
+        accent: '#A6DD05',
+        light: '#F1F1F1',
         dark: {
-          DEFAULT: '#0a0a0a',
-          card: '#1a1a1a',
-          border: '#2a2a2a',
+          DEFAULT: '#171717',
+          card: '#2D2D2D',
+          border: '#3a3a3a',
         },
       },
       borderRadius: {

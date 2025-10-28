@@ -51,21 +51,21 @@ export default function NetworkAlert() {
         <div className="flex items-start gap-3">
           <AlertCircle className="w-6 h-6 text-amber-400 flex-shrink-0 mt-0.5" />
           <div className="flex-1">
-            <h3 className="font-semibold text-white mb-1">Red incorrecta</h3>
+            <h3 className="font-semibold text-light mb-1">Red incorrecta</h3>
             <p className="text-amber-100 text-sm mb-3">
               Esta aplicación solo funciona en {SCROLL_SEPOLIA_NAME}.
               Por favor cambia tu red para continuar.
             </p>
             <button
               onClick={handleSwitchNetwork}
-              className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all"
+              className="bg-amber-500 hover:bg-amber-600 text-light px-4 py-2 rounded-lg text-sm font-semibold transition-all"
             >
               Cambiar a {SCROLL_SEPOLIA_NAME}
             </button>
           </div>
           <button
             onClick={() => setDismissed(true)}
-            className="text-amber-200 hover:text-white transition-colors"
+            className="text-amber-200 hover:text-light transition-colors"
           >
             <X className="w-5 h-5" />
           </button>

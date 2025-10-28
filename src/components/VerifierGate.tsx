@@ -17,7 +17,7 @@ type VerificationResult = {
 const getBandColor = (band: BandLevel) => {
   switch (band) {
     case 'A':
-      return 'bg-green-500/20 text-green-400 border-green-500/50';
+      return 'bg-accent/20 text-green-400 border-green-500/50';
     case 'B':
       return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/50';
     case 'C':
@@ -80,27 +80,27 @@ export default function VerifierGate() {
     const isApto = result.stability === 'A' && result.inflows === 'A' && result.risk === 'A';
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 py-8 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-dark via-dark-card to-dark py-8 px-4">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8">
             <div className={`inline-flex rounded-full p-6 mb-4 ${
-              isApto ? 'bg-green-500/20' : 'bg-yellow-500/20'
+              isApto ? 'bg-accent/20' : 'bg-yellow-500/20'
             }`}>
               <Shield className={`w-16 h-16 ${isApto ? 'text-green-400' : 'text-yellow-400'}`} />
             </div>
-            <h1 className="text-3xl font-bold text-white mb-3">
+            <h1 className="text-3xl font-bold text-light mb-3">
               {isApto ? 'Verificación: Apto' : 'Verificación: Requiere revisión'}
             </h1>
-            <p className="text-gray-300">Resultado de la prueba sellada</p>
+            <p className="text-light">Resultado de la prueba sellada</p>
           </div>
 
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-3xl border border-gray-700 p-8 mb-6">
-            <h2 className="text-xl font-semibold text-white mb-6">Factores evaluados</h2>
+          <div className="bg-dark-card/50 backdrop-blur-sm rounded-3xl border border-dark-border p-8 mb-6">
+            <h2 className="text-xl font-semibold text-light mb-6">Factores evaluados</h2>
 
             <div className="space-y-4 mb-8">
-              <div className="flex items-center justify-between p-4 bg-gray-700/30 rounded-xl">
+              <div className="flex items-center justify-between p-4 bg-dark-card/30 rounded-xl">
                 <div>
-                  <h3 className="font-medium text-white mb-1">Estabilidad</h3>
+                  <h3 className="font-medium text-light mb-1">Estabilidad</h3>
                   <p className="text-xs text-gray-400">Consistencia de saldos</p>
                 </div>
                 <span className={`px-4 py-2 rounded-full text-sm font-bold border ${getBandColor(result.stability)}`}>
@@ -108,9 +108,9 @@ export default function VerifierGate() {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between p-4 bg-gray-700/30 rounded-xl">
+              <div className="flex items-center justify-between p-4 bg-dark-card/30 rounded-xl">
                 <div>
-                  <h3 className="font-medium text-white mb-1">Inflows</h3>
+                  <h3 className="font-medium text-light mb-1">Inflows</h3>
                   <p className="text-xs text-gray-400">Ingresos recurrentes</p>
                 </div>
                 <span className={`px-4 py-2 rounded-full text-sm font-bold border ${getBandColor(result.inflows)}`}>
@@ -118,9 +118,9 @@ export default function VerifierGate() {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between p-4 bg-gray-700/30 rounded-xl">
+              <div className="flex items-center justify-between p-4 bg-dark-card/30 rounded-xl">
                 <div>
-                  <h3 className="font-medium text-white mb-1">Riesgo</h3>
+                  <h3 className="font-medium text-light mb-1">Riesgo</h3>
                   <p className="text-xs text-gray-400">Gestión de volatilidad</p>
                 </div>
                 <span className={`px-4 py-2 rounded-full text-sm font-bold border ${getBandColor(result.risk)}`}>
@@ -129,39 +129,39 @@ export default function VerifierGate() {
               </div>
             </div>
 
-            <div className="bg-blue-900/30 border border-blue-500/50 rounded-xl p-4 mb-6">
-              <p className="text-blue-200 text-sm">
+            <div className="bg-dark-card/30 border border-accent/50 rounded-xl p-4 mb-6">
+              <p className="text-light text-sm">
                 <strong>Sin PII:</strong> Esta verificación no expone montos, contrapartes
                 ni información personal del usuario. Solo muestra bandas de evaluación.
               </p>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">
-              <button className="bg-blue-500 hover:bg-blue-600 text-white py-4 rounded-xl font-semibold transition-all">
+              <button className="bg-accent hover:bg-primary-dark text-dark py-3 rounded-xl font-semibold transition-all">
                 Solicitar underwriting
               </button>
-              <button className="bg-gray-700 hover:bg-gray-600 text-white py-4 rounded-xl font-semibold transition-all">
+              <button className="bg-dark-card hover:bg-gray-600 text-light py-3 rounded-xl font-semibold transition-all">
                 Descargar constancia
               </button>
             </div>
           </div>
 
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700 p-6 mb-6">
-            <h3 className="text-sm font-semibold text-white mb-3">Metadatos de la prueba</h3>
+          <div className="bg-dark-card/50 backdrop-blur-sm rounded-2xl border border-dark-border p-6 mb-6">
+            <h3 className="text-sm font-semibold text-light mb-3">Metadatos de la prueba</h3>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-gray-400">Usuario:</span>
-                <span className="text-white font-mono text-xs">
+                <span className="text-light font-mono text-xs">
                   {result.user.substring(0, 6)}...{result.user.substring(result.user.length - 4)}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-400">Época:</span>
-                <span className="text-white">{result.epoch.toString()}</span>
+                <span className="text-light">{result.epoch.toString()}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-400">Creada:</span>
-                <span className="text-white">
+                <span className="text-light">
                   {new Date(Number(result.createdAt) * 1000).toLocaleDateString()}
                 </span>
               </div>
@@ -177,7 +177,7 @@ export default function VerifierGate() {
               setResult(null);
               setProofId('');
             }}
-            className="text-gray-400 hover:text-white text-sm transition-colors mx-auto block"
+            className="text-gray-400 hover:text-light text-sm transition-colors mx-auto block"
           >
             ← Verificar otra prueba
           </button>
@@ -187,20 +187,20 @@ export default function VerifierGate() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-dark via-dark-card to-dark py-8 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
-          <div className="inline-flex bg-blue-500/20 rounded-full p-6 mb-4">
-            <Shield className="w-16 h-16 text-blue-400" />
+          <div className="inline-flex bg-accent/20 rounded-full p-6 mb-4">
+            <Shield className="w-16 h-16 text-accent" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-3">Portal de Verificación</h1>
-          <p className="text-gray-300">
+          <h1 className="text-3xl font-bold text-light mb-3">Portal de Verificación</h1>
+          <p className="text-light">
             Para prestamistas e instituciones financieras
           </p>
         </div>
 
-        <div className="bg-gray-800/50 backdrop-blur-sm rounded-3xl border border-gray-700 p-8 mb-6">
-          <h2 className="text-xl font-semibold text-white mb-4">Verificar prueba</h2>
+        <div className="bg-dark-card/50 backdrop-blur-sm rounded-3xl border border-dark-border p-8 mb-6">
+          <h2 className="text-xl font-semibold text-light mb-4">Verificar prueba</h2>
           <p className="text-gray-400 text-sm mb-6">
             Ingresa el ID de prueba que te compartió el cliente para ver su resultado
             y bandas de evaluación sin exponer información personal.
@@ -216,7 +216,7 @@ export default function VerifierGate() {
           )}
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-light mb-2">
               ID de prueba o enlace
             </label>
             <input
@@ -224,14 +224,14 @@ export default function VerifierGate() {
               value={proofId}
               onChange={(e) => setProofId(e.target.value)}
               placeholder="0x..."
-              className="w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-dark-card border border-dark-border rounded-xl px-4 py-3 text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <button
             onClick={handleVerify}
             disabled={loading}
-            className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-600 text-white py-4 rounded-xl font-semibold transition-all disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 bg-accent hover:bg-primary-dark disabled:bg-gray-600 text-light py-3 rounded-xl font-semibold transition-all disabled:cursor-not-allowed"
           >
             {loading ? (
               <>
@@ -247,9 +247,9 @@ export default function VerifierGate() {
           </button>
         </div>
 
-        <div className="bg-blue-900/30 border border-blue-500/50 rounded-2xl p-6 text-center">
-          <h3 className="font-semibold text-white mb-2">¿Qué verás?</h3>
-          <p className="text-blue-200 text-sm">
+        <div className="bg-dark-card/30 border border-accent/50 rounded-2xl p-6 text-center">
+          <h3 className="font-semibold text-light mb-2">¿Qué verás?</h3>
+          <p className="text-light text-sm">
             Resultado (Apto/Casi) y bandas por factor. No se exponen montos,
             contrapartes ni información personal del cliente.
           </p>
