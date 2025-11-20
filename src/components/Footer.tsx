@@ -1,5 +1,5 @@
 import { Shield, ExternalLink } from 'lucide-react';
-import { useWeb3 } from '../context/Web3Context';
+import { useAccount, useChainId } from 'wagmi';
 import {
   SCROLL_SEPOLIA_NAME,
   SCROLL_SEPOLIA_EXPLORER,
@@ -8,7 +8,8 @@ import {
 } from '../lib/contract';
 
 export default function Footer() {
-  const { chainId, isConnected } = useWeb3();
+  const { isConnected } = useAccount();
+  const chainId = useChainId();
 
   const isCorrectNetwork = chainId === SCROLL_SEPOLIA_CHAIN_ID;
 

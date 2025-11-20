@@ -1,17 +1,31 @@
 import { useState } from 'react';
+import { useAppKit } from '@reown/appkit/react';
+import { useAccount } from 'wagmi';
 import { Shield, CheckCircle, ExternalLink, AlertCircle } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { useWeb3 } from '../context/Web3Context';
 import { SCROLL_SEPOLIA_NAME } from '../lib/contract';
 
 export default function ConnectWallet() {
   const { setCurrentScreen } = useApp();
-  const { account, isConnecting, error, connect } = useWeb3();
+  const { address, status } = useAccount();
+  const { open } = useAppKit();
   const [consentData, setConsentData] = useState(false);
   const [consentPrivacy, setConsentPrivacy] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [connectError, setConnectError] = useState<string | null>(null);
 
-  const canContinue = account && consentData && consentPrivacy;
+  const canContinue = address && consentData && consentPrivacy;
+  const isConnecting = status === 'connecting' || status === 'reconnecting';
+
+  const handleConnect = async () => {
+    try {
+      setConnectError(null);
+      await open?.();
+    } catch (err) {
+      console.error('Error opening wallet selector:', err);
+      setConnectError('No pudimos abrir el selector de wallets. Inténtalo de nuevo.');
+    }
+  };
 
   const handleContinue = () => {
     if (canContinue) {
@@ -35,40 +49,59 @@ export default function ConnectWallet() {
         <div className="bg-dark-card/50 backdrop-blur-sm rounded-3xl border border-dark-border p-8 mb-6">
           <div className="mb-8">
             <h2 className="text-xl font-semibold text-light mb-4">1. Conecta tu wallet</h2>
-            {!account ? (
+            {!address ? (
               <>
                 <p className="text-gray-400 text-sm mb-4">
                   Usaremos tu wallet para analizar señales on-chain y generar tu prueba.
                   Tu información no se comparte con terceros.
                 </p>
-                {error && (
+                {connectError && (
                   <div className="bg-red-900/50 border border-red-500 rounded-xl p-4 mb-4">
                     <div className="flex items-start gap-3">
                       <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
-                      <p className="text-red-200 text-sm">{error}</p>
+                      <p className="text-red-200 text-sm">{connectError}</p>
                     </div>
                   </div>
                 )}
                 <button
-                  onClick={connect}
+                  onClick={handleConnect}
                   disabled={isConnecting}
                   className="w-full bg-accent hover:bg-primary-dark disabled:bg-gray-600 text-light py-3 rounded-xl font-semibold transition-all disabled:cursor-not-allowed"
                 >
                   {isConnecting ? 'Conectando...' : 'Conectar Wallet'}
                 </button>
                 <p className="text-xs text-gray-500 mt-3 text-center">
-                  Se abrirá MetaMask u otra wallet compatible en {SCROLL_SEPOLIA_NAME}
+                  Se abrirá Reown (WalletConnect) para seleccionar tu wallet en {SCROLL_SEPOLIA_NAME}
                 </p>
               </>
             ) : (
-              <div className="flex items-center gap-3 bg-green-900/30 border border-green-500/50 rounded-xl p-4">
-                <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-light font-medium text-sm mb-1">Wallet conectada</p>
-                  <p className="text-gray-400 text-xs font-mono truncate">
-                    {account}
-                  </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 bg-green-900/30 border border-green-500/50 rounded-xl p-4">
+                  <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-light font-medium text-sm mb-1">Wallet conectada</p>
+                    <p className="text-gray-400 text-xs font-mono truncate">
+                      {address}
+                    </p>
+                  </div>
                 </div>
+                <button
+                  onClick={handleConnect}
+                  className="w-full sm:w-auto bg-green-600/30 hover:bg-green-600/50 text-green-100 border border-green-500/40 px-4 py-2 rounded-xl text-sm font-semibold transition-all"
+                >
+                  Administrar conexión / red
+                </button>
+                {connectError && (
+                  <div className="bg-red-900/50 border border-red-500 rounded-xl p-3">
+                    <div className="flex items-start gap-3">
+                      <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                      <p className="text-red-200 text-xs">{connectError}</p>
+                    </div>
+                  </div>
+                )}
+                <p className="text-xs text-gray-500">
+                  Usa el modal de Reown para cambiar de wallet, desconectarte o elegir otra red.
+                </p>
               </div>
             )}
           </div>
@@ -157,7 +190,7 @@ export default function ConnectWallet() {
             Continuar
           </button>
 
-          {!canContinue && account && (
+          {!canContinue && address && (
             <p className="text-center text-xs text-gray-500 mt-3">
               Acepta ambos consentimientos para continuar
             </p>

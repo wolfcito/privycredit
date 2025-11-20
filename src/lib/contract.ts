@@ -1,4 +1,4 @@
-import { createPublicClient, createWalletClient, custom, http, type Address } from 'viem';
+import { createPublicClient, http, type Address } from 'viem';
 import { scrollSepolia } from 'viem/chains';
 
 export const SCROLL_SEPOLIA_CHAIN_ID = 534351;
@@ -171,17 +171,6 @@ export const publicClient = createPublicClient({
   chain: scrollSepolia,
   transport: http(),
 });
-
-export function createWalletClientFromProvider() {
-  if (typeof window === 'undefined' || !window.ethereum) {
-    return null;
-  }
-
-  return createWalletClient({
-    chain: scrollSepolia,
-    transport: custom(window.ethereum),
-  });
-}
 
 export enum Band {
   A = 0,

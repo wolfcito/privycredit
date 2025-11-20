@@ -10,6 +10,7 @@ import Simulator from './components/Simulator';
 import Reminders from './components/Reminders';
 import VerifierGate from './components/VerifierGate';
 import NetworkAlert from './components/NetworkAlert';
+import WalletControls from './components/WalletControls';
 import Footer from './components/Footer';
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
   return (
     <div className="antialiased flex flex-col min-h-screen">
       <NetworkAlert />
+      <WalletControls />
       <div className="flex-1">
         {renderScreen()}
       </div>

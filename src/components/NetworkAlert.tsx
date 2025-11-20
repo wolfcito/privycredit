@@ -1,10 +1,12 @@
 import { AlertCircle, X } from 'lucide-react';
 import { useState } from 'react';
-import { useWeb3 } from '../context/Web3Context';
-import { SCROLL_SEPOLIA_CHAIN_ID, SCROLL_SEPOLIA_NAME, SCROLL_SEPOLIA_RPC, SCROLL_SEPOLIA_EXPLORER } from '../lib/contract';
+import { useAccount, useChainId, useSwitchChain } from 'wagmi';
+import { SCROLL_SEPOLIA_CHAIN_ID, SCROLL_SEPOLIA_NAME } from '../lib/contract';
 
 export default function NetworkAlert() {
-  const { isConnected, chainId } = useWeb3();
+  const { isConnected } = useAccount();
+  const chainId = useChainId();
+  const { switchChainAsync, isPending } = useSwitchChain();
   const [dismissed, setDismissed] = useState(false);
 
   const isWrongNetwork = isConnected && chainId !== SCROLL_SEPOLIA_CHAIN_ID;
@@ -12,36 +14,10 @@ export default function NetworkAlert() {
   if (!isWrongNetwork || dismissed) return null;
 
   const handleSwitchNetwork = async () => {
-    if (typeof window === 'undefined' || !window.ethereum) return;
-
     try {
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: `0x${SCROLL_SEPOLIA_CHAIN_ID.toString(16)}` }],
-      });
-    } catch (switchError: any) {
-      if (switchError.code === 4902) {
-        try {
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: `0x${SCROLL_SEPOLIA_CHAIN_ID.toString(16)}`,
-                chainName: SCROLL_SEPOLIA_NAME,
-                nativeCurrency: {
-                  name: 'ETH',
-                  symbol: 'ETH',
-                  decimals: 18,
-                },
-                rpcUrls: [SCROLL_SEPOLIA_RPC],
-                blockExplorerUrls: [SCROLL_SEPOLIA_EXPLORER],
-              },
-            ],
-          });
-        } catch (addError) {
-          console.error('Failed to add network:', addError);
-        }
-      }
+      await switchChainAsync?.({ chainId: SCROLL_SEPOLIA_CHAIN_ID });
+    } catch (switchError) {
+      console.error('Failed to switch Scroll network:', switchError);
     }
   };
 
@@ -58,9 +34,10 @@ export default function NetworkAlert() {
             </p>
             <button
               onClick={handleSwitchNetwork}
-              className="bg-amber-500 hover:bg-amber-600 text-light px-4 py-2 rounded-lg text-sm font-semibold transition-all"
+              disabled={isPending}
+              className="bg-amber-500 hover:bg-amber-600 disabled:bg-amber-400/70 disabled:cursor-not-allowed text-light px-4 py-2 rounded-lg text-sm font-semibold transition-all"
             >
-              Cambiar a {SCROLL_SEPOLIA_NAME}
+              {isPending ? 'Cambiando...' : `Cambiar a ${SCROLL_SEPOLIA_NAME}`}
             </button>
           </div>
           <button

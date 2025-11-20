@@ -1,4 +1,4 @@
-import { Shield, Lock, CheckCircle, AlertCircle, ExternalLink } from 'lucide-react';
+import { Shield, Lock, CheckCircle, ExternalLink } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { SCROLL_SEPOLIA_NAME, SCROLL_SEPOLIA_EXPLORER, CONTRACT_ADDRESS } from '../lib/contract';
 

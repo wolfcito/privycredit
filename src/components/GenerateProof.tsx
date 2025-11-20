@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useAccount, useChainId, useWalletClient } from 'wagmi';
 import { Shield, Loader } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { useWeb3 } from '../context/Web3Context';
 import {
   CONTRACT_ADDRESS,
   CONTRACT_ABI,
-  createWalletClientFromProvider,
   bandLevelToBand,
   SCROLL_SEPOLIA_CHAIN_ID,
   SCROLL_SEPOLIA_NAME,
@@ -46,13 +45,15 @@ const generateMockProof = (): { status: 'apto' | 'casi'; factors: any } => {
 
 export default function GenerateProof() {
   const { setCurrentScreen, setCurrentProof } = useApp();
-  const { account, chainId } = useWeb3();
+  const { address } = useAccount();
+  const chainId = useChainId();
+  const { data: walletClient } = useWalletClient();
   const [currentStep, setCurrentStep] = useState(1);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (!account) return;
+    if (!address) return;
 
     const stepDuration = 8000;
     const updateInterval = 50;
@@ -78,30 +79,32 @@ export default function GenerateProof() {
     }, updateInterval);
 
     return () => clearInterval(timer);
-  }, [account, currentStep]);
+  }, [address, currentStep]);
 
   const generateProof = async () => {
     try {
-      if (!account) throw new Error('Wallet no autenticada');
+      if (!address) throw new Error('Wallet no autenticada');
 
       if (chainId !== SCROLL_SEPOLIA_CHAIN_ID) {
         throw new Error(`Red incorrecta. Esta aplicación solo funciona en ${SCROLL_SEPOLIA_NAME} (Chain ID: ${SCROLL_SEPOLIA_CHAIN_ID})`);
+      }
+      if (!walletClient) {
+        throw new Error('No se detectó ninguna wallet conectada. Reintenta la conexión.');
+      }
+      const walletAccount = walletClient.account;
+      if (!walletAccount) {
+        throw new Error('No pudimos recuperar tu cuenta. Vuelve a conectar tu wallet.');
       }
 
       const mockProof = generateMockProof();
       const currentEpoch = Math.floor(Date.now() / (24 * 60 * 60 * 1000));
 
       const proofId = keccak256(
-        stringToHex(`${account}-${currentEpoch}-${Date.now()}`)
+        stringToHex(`${address}-${currentEpoch}-${Date.now()}`)
       );
       const commitment = keccak256(
         stringToHex(JSON.stringify(mockProof.factors) + Date.now())
       );
-
-      const walletClient = createWalletClientFromProvider();
-      if (!walletClient) throw new Error('No se pudo crear el cliente de wallet');
-
-      const [address] = await walletClient.getAddresses();
 
       const hash = await walletClient.writeContract({
         address: CONTRACT_ADDRESS,
@@ -115,12 +118,12 @@ export default function GenerateProof() {
           bandLevelToBand(mockProof.factors.inflows),
           bandLevelToBand(mockProof.factors.riesgo),
         ],
-        account: address,
+        account: walletAccount,
       });
 
       const proof: Proof = {
         id: proofId,
-        user_id: account,
+        user_id: address,
         status: mockProof.status,
         factors: mockProof.factors,
         anchor_root: commitment,
