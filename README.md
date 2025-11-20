@@ -2,7 +2,7 @@
 
 PrivyCredit es la puerta de entrada para ofrecer crédito confiable sobre señales on-chain. Permitimos que los usuarios prueben su solvencia sin entregar datos sensibles y brindamos a los partners un flujo claro, medible y con identidad propia.
 
-## Propuesta Ejecutiva
+## Propuesta
 - **Confianza inmediata:** pruebas selladas que se anclan en Scroll, listas para que bancos y fintechs las verifiquen.
 - **Experiencia cuidada:** guía paso a paso (conectar, analizar, compartir) que reduce fricción y comunica valor en todo momento.
 - **Activación comercial:** módulos de checklist, simulador y recordatorios mantienen al prospecto en tu embudo incluso si aún no califica.
@@ -13,6 +13,20 @@ PrivyCredit es la puerta de entrada para ofrecer crédito confiable sobre señal
 2. El sistema analiza activity on-chain, genera bandas (A/B/C) y sella la prueba.
 3. El resultado se presenta con mensajes accionables; si califica puede compartir un enlace verificable con terceros.
 4. Lado verificador, se consulta la prueba contra el contrato y la metadata persistida en Supabase.
+
+### Diagrama de Flujo
+```mermaid
+flowchart LR
+    A[Usuario abre PrivyCredit] --> B{Wallet conectada?}
+    B -- No --> C[Modal Reown para conectar y otorgar consentimientos]
+    B -- Sí --> D[Analizar señales on-chain]
+    D --> E[Generar prueba sellada y anclar en Scroll]
+    E --> F{Resultado}
+    F -- Apto --> G[Mostrar bandas + CTA Compartir]
+    F -- Casi --> H[Mostrar checklist y simulador]
+    G --> I[Generar enlace verificable]
+    I --> J[Partner verifica contra contrato + Supabase]
+```
 
 ## Componentes Clave
 | Capa | Valor para negocio |
@@ -34,5 +48,5 @@ PrivyCredit es la puerta de entrada para ofrecer crédito confiable sobre señal
 *(Reserva este espacio para un mockup o hero visual del flujo principal.)*
 
 ```
-![PrivyCredit Hero](docs/assets/privycredit-hero.png)
+![PrivyCredit Hero](assets/privycredit-hero.png)
 ```
