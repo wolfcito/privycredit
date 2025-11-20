@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useAccount, useChainId, useWalletClient } from 'wagmi';
 import { Shield, Loader } from 'lucide-react';
 import { useApp } from '../context/AppContext';
@@ -43,6 +43,13 @@ const generateMockProof = (): { status: 'apto' | 'casi'; factors: any } => {
   }
 };
 
+const getStepFromProgress = (progress: number) => {
+  if (progress >= 75) return 4;
+  if (progress >= 50) return 3;
+  if (progress >= 25) return 2;
+  return 1;
+};
+
 export default function GenerateProof() {
   const { setCurrentScreen, setCurrentProof } = useApp();
   const { address } = useAccount();
@@ -51,37 +58,12 @@ export default function GenerateProof() {
   const [currentStep, setCurrentStep] = useState(1);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState('');
+  const hasSubmittedRef = useRef(false);
 
-  useEffect(() => {
-    if (!address) return;
+  const generateProof = useCallback(async () => {
+    if (hasSubmittedRef.current) return;
+    hasSubmittedRef.current = true;
 
-    const stepDuration = 8000;
-    const updateInterval = 50;
-    const progressPerUpdate = (100 / 4) / (stepDuration / updateInterval);
-
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        const newProgress = prev + progressPerUpdate;
-
-        if (newProgress >= 25 && currentStep === 1) {
-          setCurrentStep(2);
-        } else if (newProgress >= 50 && currentStep === 2) {
-          setCurrentStep(3);
-        } else if (newProgress >= 75 && currentStep === 3) {
-          setCurrentStep(4);
-        } else if (newProgress >= 100) {
-          clearInterval(timer);
-          generateProof();
-        }
-
-        return Math.min(newProgress, 100);
-      });
-    }, updateInterval);
-
-    return () => clearInterval(timer);
-  }, [address, currentStep]);
-
-  const generateProof = async () => {
     try {
       if (!address) throw new Error('Wallet no autenticada');
 
@@ -139,8 +121,39 @@ export default function GenerateProof() {
     } catch (err: any) {
       console.error('Error generating proof:', err);
       setError(err.message || 'Error al generar la prueba');
+      hasSubmittedRef.current = false;
     }
-  };
+  }, [address, chainId, walletClient, setCurrentProof, setCurrentScreen]);
+
+  useEffect(() => {
+    if (!address) return;
+
+    setProgress(0);
+    setCurrentStep(1);
+    setError('');
+    hasSubmittedRef.current = false;
+
+    const stepDuration = 8000;
+    const updateInterval = 50;
+    const progressPerUpdate = (100 / 4) / (stepDuration / updateInterval);
+    let progressValue = 0;
+
+    const timer = setInterval(() => {
+      progressValue = Math.min(progressValue + progressPerUpdate, 100);
+      setProgress(progressValue);
+      setCurrentStep((prev) => {
+        const next = getStepFromProgress(progressValue);
+        return prev === next ? prev : next;
+      });
+
+      if (progressValue >= 100) {
+        clearInterval(timer);
+        generateProof();
+      }
+    }, updateInterval);
+
+    return () => clearInterval(timer);
+  }, [address, generateProof]);
 
   if (error) {
     return (
